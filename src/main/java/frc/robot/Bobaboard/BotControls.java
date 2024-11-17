@@ -16,6 +16,7 @@ public class BotControls {
     Arm arm = Arm.getInstance();
     Hook hook = Hook.getInstance();
     DriveSubsystem m_robotDrive = new DriveSubsystem();
+    static ControlHub m_ControlHub = ControlHub.getInstance();
     final static SendableChooser<Boolean> ControllerMode = new SendableChooser<>();
     static boolean OneControllerQuery = true;
 
@@ -35,31 +36,31 @@ public class BotControls {
 
     public static void oneControllerMode() {
         if (OneControllerQuery){
-            if (ControlHub.driverController.A_Button.wasActivated() == true) {
+            if (m_ControlHub.driverController.A_Button.wasActivated() == true) {
                 rContainer.FallOffChain();
-            }else if (ControlHub.driverController.B_Button.wasActivated() == true){
+            }else if (m_ControlHub.driverController.B_Button.wasActivated() == true){
                 rContainer.ClimbChain();
-            }else if (ControlHub.driverController.X_Button.wasActivated() == true){
+            }else if (m_ControlHub.driverController.X_Button.wasActivated() == true){
                 rContainer.StowArm();
-            }else if (ControlHub.driverController.Y_Button.wasActivated() == true){
+            }else if (m_ControlHub.driverController.Y_Button.wasActivated() == true){
                 rContainer.ScoreNote();
-            }else if (ControlHub.driverController.L_Bumper.wasActivated() == true){
+            }else if (m_ControlHub.driverController.L_Bumper.wasActivated() == true){
                 rContainer.IntakeNotePrep();
-            }else if (ControlHub.driverController.R_Bumper.wasActivated() == true){
+            }else if (m_ControlHub.driverController.R_Bumper.wasActivated() == true){
                 rContainer.IntakeNoteStow();
             }
         }else{
-            if (ControlHub.operatorController.L_Bumper.wasActivated() == true) {
+            if (m_ControlHub.operatorController.L_Bumper.wasActivated() == true) {
                 rContainer.FallOffChain();
-            }else if (ControlHub.operatorController.R_Bumper.wasActivated() == true){
+            }else if (m_ControlHub.operatorController.R_Bumper.wasActivated() == true){
                 rContainer.ClimbChain();
-            }else if (ControlHub.operatorController.X_Button.wasActivated() == true){
+            }else if (m_ControlHub.operatorController.X_Button.wasActivated() == true){
                 rContainer.StowArm();
-            }else if (ControlHub.operatorController.Y_Button.wasActivated() == true){
+            }else if (m_ControlHub.operatorController.Y_Button.wasActivated() == true){
                 rContainer.ScoreNote();
-            }else if (ControlHub.driverController.L_Bumper.wasActivated() == true){
+            }else if (m_ControlHub.driverController.L_Bumper.wasActivated() == true){
                 rContainer.IntakeNotePrep();
-            }else if (ControlHub.driverController.R_Bumper.wasActivated() == true){
+            }else if (m_ControlHub.driverController.R_Bumper.wasActivated() == true){
                 rContainer.IntakeNoteStow();
             }
         }

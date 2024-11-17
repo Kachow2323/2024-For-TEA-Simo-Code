@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
     // // CameraServer.startAutomaticCapture(limelightFeed);
     // CameraServer.addCamera(limelightFeed);
     // Shuffleboard.getTab("tab").add(limelightFeed);
-        SmartDashboard.putBoolean("key", ControlHub.driverController.A_Button.wasActivated());
+        SmartDashboard.putBoolean("key", mControlBoard.driverController.A_Button.wasActivated());
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
