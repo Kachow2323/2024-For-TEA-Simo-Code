@@ -24,10 +24,10 @@ public class PlayoffAutoCommand {
           new WaitCommand(8.5),
           PlayoffAutoCommand.getPathPlannerCommandFarAmp(),
           new WaitCommand(.2),
-          RobotContainer.getInstance().scoreHookDelay().withTimeout(1.5),
+          //RobotContainer.getInstance().scoreHookDelay().withTimeout(1.5),
           new WaitCommand(.1),
-          new InstantCommand(() -> RobotContainer.getInstance().arm.setArmState(States.ArmPos.STOW), RobotContainer.getInstance().arm),
-          new InstantCommand(() -> RobotContainer.getInstance().hook.setHookState(States.HookPos.STOW), RobotContainer.getInstance().hook),
+          // new InstantCommand(() -> RobotContainer.getInstance().arm.setArmState(States.ArmPos.STOW), RobotContainer.getInstance().arm),
+          // new InstantCommand(() -> RobotContainer.getInstance().hook.setHookState(States.HookPos.STOW), RobotContainer.getInstance().hook),
           new WaitCommand(0),
           PlayoffAutoCommand.getPathPlannerCommandAutoLeave()
         );

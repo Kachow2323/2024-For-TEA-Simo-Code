@@ -10,25 +10,6 @@ import frc.robot.Constants;
 
 public class Util {
 
-    private static int talonSRXDefaultContinuousLimit = 38;
-    private static int talonSRXDefaultPeakLimit = 45;
-    private static int talonSRXDefaultPeakDuration = 125;
-
-    public static final boolean talonFXStatorLimitEnable = false;
-    public static final double talonFXStatorCurrentLimit = 100;
-    public static final double talonFXStatorTriggerThreshold = 100;
-    public static final double talonFXStatorTriggerDuration = 0;
-
-    public static final boolean talonFXSupplyLimitEnable = false;
-    public static final double talonFXSupplyCurrentLimit = 70;
-    public static final double talonFXSupplyTriggerThreshold = 70;
-    public static final double talonFXSupplyTriggerDuration = 0.7;
-
-    private static int sparkMAXDefaultCurrentLimit = 40;
-
-    //private static double voltageCompensation = Constants.kMaxVoltage;
-    
-
     /**
      * Create a CANSparkMax with current limiting enabled
      * 
@@ -40,18 +21,14 @@ public class Util {
      */
     public static CANSparkMax createSparkMAX(int id, MotorType motortype, int stallLimit) {
         CANSparkMax sparkMAX = new CANSparkMax(id, motortype);
+        sparkMAX.setSmartCurrentLimit(stallLimit);
         // sparkMAX.restoreFactoryDefaults();
         // sparkMAX.enableVoltageCompensation(voltageCompensation);
-        sparkMAX.setSmartCurrentLimit(stallLimit);
-        // sparkMAX.setIdleMode(IdleMode.kCoast);*/
-
-        //sparkMAX.burnFlash();
         return sparkMAX;
     }
 
-    public static double deadBand(double val, double deadband) {
-		return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
-	}
+    private static int sparkMAXDefaultCurrentLimit = 40;
+    //40 amps - v1.1. | 20-30 amps - 550
 
     /**
      * Create a CANSparkMax with default current limiting enabled
@@ -64,4 +41,14 @@ public class Util {
     public static CANSparkMax createSparkMAX(int id, MotorType motortype) {
         return createSparkMAX(id, motortype, sparkMAXDefaultCurrentLimit);
     }
+
+    /**
+     * Returns value if greater than deadband and 0 if not above threshold
+     * @param val
+     * @param deadband
+     * @return Afflicted Deadband Value
+     */
+    public static double deadBand(double val, double deadband) {
+		return (Math.abs(val) > Math.abs(deadband)) ? val : 0.0;
+	}
 }

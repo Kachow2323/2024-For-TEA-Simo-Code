@@ -53,6 +53,10 @@ public final class Constants {
     public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
     // SPARK MAX CAN IDs
+    //Update all SPKMAX's for 2025 RevLib. - Check if cancoder is flipped.
+    //Default SparkMAX ID's for 2024:
+    //Driving CW frontR: 1,3,5,7
+    //Turning CW frontR: 2,4,6,8
     public static final int kFrontLeftDrivingCanId = 7;
     public static final int kRearLeftDrivingCanId = 5;
     public static final int kFrontRightDrivingCanId = 1;
@@ -63,6 +67,7 @@ public final class Constants {
     public static final int kFrontRightTurningCanId = 2;
     public static final int kRearRightTurningCanId = 4;
 
+    //Use to globally fix Gyro Flip
     public static final boolean kGyroReversed = false;
   }
 
@@ -78,7 +83,7 @@ public final class Constants {
 
     // Calculations required for driving motor conversion factors and feed forward
     public static final double kDrivingMotorFreeSpeedRps = NeoMotorConstants.kFreeSpeedRpm / 60;
-    public static final double kWheelDiameterMeters = 0.072475761;
+    public static final double kWheelDiameterMeters = 0.072475761; //Wheel Odometry relies on accurate measurements
     public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
     // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15 teeth on the bevel pinion
     public static final double kDrivingMotorReduction = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15);
@@ -96,7 +101,7 @@ public final class Constants {
     public static final double kTurningEncoderPositionPIDMinInput = 0; // radians
     public static final double kTurningEncoderPositionPIDMaxInput = kTurningEncoderPositionFactor; // radians
 
-    public static final double kDrivingP = 0.04;
+    public static final double kDrivingP = 0.04; //0.4 is 1/2 speed
     public static final double kDrivingI = 0;
     public static final double kDrivingD = 0;
     public static final double kDrivingFF = 1 / kDriveWheelFreeSpeedRps;
@@ -122,11 +127,11 @@ public final class Constants {
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
-    public static final double kDriveDeadband = 0.07; //0.05
+    public static final double kDriveDeadband = 0.07; //0.05, increase to compensate for stick drift
   }
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 3;
+    public static final double kMaxSpeedMetersPerSecond = 3; //more likely to 3.5 m/s
     public static final double kMaxAccelerationMetersPerSecondSquared = 3;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
@@ -150,13 +155,13 @@ public final class Constants {
     public static final double kFreeSpeedRpm = 5676;
   }
 
-  public static final class ArmConstants {
+  public static final class TestSubsystemConstants {
     // add id's
     // relative to absolute: relative = 5*absolute + 0.3
     public static final int rightArmMotorID = 9;
     public static final int leftArmMotorID = 10;
-    public static final double stow = 0.120; //0.; // 0.318 abs 500:1 - 0.120
-    public static final double score = 4.85; //7.904655; //8.268729; //1.65;//relative encoder DO NOT use 1.65 // 500:1 score - 8.15
+    public static final double pos1 = 0.120; //0.; // 0.318 abs 500:1 - 0.120
+    public static final double pos2 = 4.85; //7.904655; //8.268729; //1.65;//relative encoder DO NOT use 1.65 // 500:1 score - 8.15
     public static final double max = 5; //8.21! //500:1 max - 8.16
     public static final double climb_up = 4.143260; //1.25; //500:1 - cu - 7.238
     public static final double climb_down = -.15; //0.148; // 500:1 cd - -.15
@@ -168,7 +173,6 @@ public final class Constants {
     public static double climbP = 1; // 500:1 - 1.0
     public static double climbI = 0.0;
     public static double climbD = 0.0;
-    
 
   }
 

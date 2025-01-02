@@ -33,10 +33,8 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.HookConstants;
 import frc.robot.Constants.OIConstants;
-import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Hook;
-
+import frc.robot.subsystems.TestSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -71,8 +69,7 @@ public class RobotContainer {
   /*READ ME:
   The robot's subsystems
   */
-  public final Arm arm;
-  public final Hook hook;
+  public final TestSubsystem m_TestSubsystem;
   private static RobotContainer instance = null;
   public final AutoModeManager m_AutoModeManager;
   public final ControlHub m_ControlHub;
@@ -89,8 +86,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    arm = Arm.getInstance();
-    hook = Hook.getInstance();
+    m_TestSubsystem =TestSubsystem.getInstance();
     m_robotDrive = new DriveSubsystem();
 
     m_AutoModeManager = new AutoModeManager();
@@ -105,10 +101,7 @@ public class RobotContainer {
           -MathUtil.applyDeadband(m_ControlHub.driverController.getRightX(), OIConstants.kDriveDeadband),
           true, true),
       m_robotDrive));
-      NamedCommands.registerCommand("ScoreNote", new InstantCommand(() -> ScoreNote()));
-      NamedCommands.registerCommand("StowArm", new InstantCommand(() -> StowArm()));
-      NamedCommands.registerCommand("OpenHook", new InstantCommand(() -> IntakeNotePrep()));
-      NamedCommands.registerCommand("CloseHook", new InstantCommand(() -> IntakeNoteStow()));
+      NamedCommands.registerCommand("TestCommand", new InstantCommand(() -> Score()));
   }
 
 
@@ -122,86 +115,66 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
 
-  public void RunArmPositive(){
-    new RunCommand(() -> arm.setOpenLoop(.2), arm);
+  public void RunPositive(){
+    new RunCommand(() -> m_TestSubsystem.setOpenLoop(.2), m_TestSubsystem);
   }
 
-  public void RunArmNegative(){
-    new RunCommand(() -> arm.setOpenLoop(-0.2), arm);
+  public void RunNegative(){
+    new RunCommand(() -> m_TestSubsystem.setOpenLoop(-0.2), m_TestSubsystem);
   }
 
-  public Command RunHookPositive(){
-    return new RunCommand(() -> hook.setOpenLoop(.1), hook);
+  public Command IntakePrep(){
+    return new RunCommand(() -> m_TestSubsystem.setState(States.TestPos.POS1), m_TestSubsystem);
   }
 
-  public Command RunHookNegative(){
-    return new RunCommand(() -> hook.setOpenLoop(-0.1), hook);
+  public Command IntakeStow(){
+    return new RunCommand(() -> m_TestSubsystem.setState(States.TestPos.STOW), m_TestSubsystem);
   }
 
-  public Command IntakeNotePrep(){
-    return new RunCommand(() -> hook.setHookState(States.HookPos.OPEN), hook);
-  }
-
-  public Command IntakeNoteStow(){
-    return new RunCommand(() -> hook.setHookState(States.HookPos.STOW), hook);
-  }
-
-  public Command ScoreNote(){
+  public Command Score(){
     return new ParallelCommandGroup(
-          new RunCommand(() -> {
-            arm.setArmState(States.ArmPos.SCORE);
-            }, arm),
-          new SequentialCommandGroup(
-            new WaitCommand(HookConstants.delay),
-            new RunCommand(() -> {
-              hook.setHookState(States.HookPos.SCORE);
-            }, hook
-            )
-          )
+          // new RunCommand(() -> {
+          //   arm.setArmState(States.ArmPos.SCORE);
+          //   }, arm),
+          // new SequentialCommandGroup(
+          //   new WaitCommand(HookConstants.delay),
+          //   new RunCommand(() -> {
+          //     hook.setHookState(States.HookPos.SCORE);
+          //   }, hook
+          //   )
+          // )
         );
   }
 
-  public Command StowArm(){
-  return new RunCommand(() -> {
-        arm.setArmState(States.ArmPos.STOW); 
-        hook.setHookState(States.HookPos.STOW);
-       }, arm, hook);
-  }
-
-  public Command ClimbChain(){
-  return new RunCommand(() -> {
-        arm.setArmState(States.ArmPos.CLIMB_UP); 
-       }, arm);
-  }
-
-  public Command FallOffChain(){
-  return new RunCommand(() -> {
-          arm.setArmState(States.ArmPos.CLIMB_DOWN); 
-        }, arm);
-  }
+  // public Command StowArm(){
+  // return new RunCommand(() -> {
+  //       arm.setArmState(States.ArmPos.STOW); 
+  //       hook.setHookState(States.HookPos.STOW);
+  //      }, arm, hook);
+  // }
 
   /* READ ME:
-     * This command runs the SCORE command for the AMP shot in AUTO
-     * By condensing the entire score command into one method we no longer have to keep defining it everywhere and we set the standard for each attempt
-     * Utilizes Constants.java for realtive and absoulte scoring encoder values.
-     * Parrallel Command Group - The command runs at the same time but we put a time delay to calculate the exact timing
-     * We needed the wait command bc we need the momentum from the swinign arm to score into the AMP
-     */
+  //    * This command runs the SCORE command for the AMP shot in AUTO
+  //    * By condensing the entire score command into one method we no longer have to keep defining it everywhere and we set the standard for each attempt
+  //    * Utilizes Constants.java for realtive and absoulte scoring encoder values.
+  //    * Parrallel Command Group - The command runs at the same time but we put a time delay to calculate the exact timing
+  //    * We needed the wait command bc we need the momentum from the swinign arm to score into the AMP
+  //    */
 
-  public Command scoreHookDelay() {
-    return new ParallelCommandGroup(
-          new RunCommand(() -> {
-            arm.setArmState(States.ArmPos.SCORE);
-            }, arm),
-          new SequentialCommandGroup(
-            new WaitCommand(HookConstants.delay),
-            new RunCommand(() -> {
-              hook.setHookState(States.HookPos.SCORE);
-            }, hook
-            )
-          )
-        );
-  }
+  // public Command scoreHookDelay() {
+  //   return new ParallelCommandGroup(
+  //         new RunCommand(() -> {
+  //           arm.setArmState(States.ArmPos.SCORE);
+  //           }, arm),
+  //         new SequentialCommandGroup(
+  //           new WaitCommand(HookConstants.delay),
+  //           new RunCommand(() -> {
+  //             hook.setHookState(States.HookPos.SCORE);
+  //           }, hook
+  //           )
+  //         )
+  //       );
+  // }
 
   /**
    * Returns the current alliance, with false indicating blue and true indicating red.

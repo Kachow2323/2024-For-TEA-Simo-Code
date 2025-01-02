@@ -5,16 +5,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.RobotContainer;
-import frc.robot.subsystems.Arm;
+import frc.robot.subsystems.TestSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.Hook;
+
 
 public class BotControls {
 
 	RobotContainer rContainer = RobotContainer.getInstance();
     ControlHub controlHub = ControlHub.getInstance();
-    Arm arm = Arm.getInstance();
-    Hook hook = Hook.getInstance();
+    TestSubsystem m_TestSubsystem = TestSubsystem.getInstance();
     boolean interruptedPPLib = false;
 
     final static SendableChooser<Boolean> ControllerMode = new SendableChooser<>();
@@ -52,7 +51,7 @@ public class BotControls {
     if (OneControllerQuery == true){
             if (controlHub.driverController.A_Button.wasActivated()) {
                 System.out.println("A Button Detected");
-                rContainer.FallOffChain().schedule();
+                rContainer.Score().schedule();
             }
 
             if (controlHub.driverController.X_Button.wasActivated()){
@@ -71,7 +70,7 @@ public class BotControls {
                 // }            }
             
                 if (controlHub.driverController.Y_Button.wasActivated()){
-                rContainer.ScoreNote().schedule();
+                rContainer.Score().schedule();
                 }
             
             if (controlHub.driverController.L_Bumper.isBeingPressed()){
@@ -79,7 +78,7 @@ public class BotControls {
     
             if (controlHub.driverController.R_Bumper.isBeingPressed()){
                 //rContainer.IntakeNoteStow().schedule();
-                rContainer.RunArmNegative();
+                rContainer.RunNegative();
             }
 
             // if(controlHub.driverController.POV0.isBeingPressed()){
@@ -90,19 +89,19 @@ public class BotControls {
             // }
             
         }else{
-            if (controlHub.operatorController.L_Bumper.wasActivated()) {
-                rContainer.FallOffChain().schedule();
-            }else if (controlHub.operatorController.R_Bumper.wasActivated()){
-                rContainer.ClimbChain().schedule();
-            }else if (controlHub.operatorController.X_Button.wasActivated()){
-                rContainer.StowArm().schedule();
-            }else if (controlHub.operatorController.Y_Button.wasActivated()){
-                rContainer.ScoreNote().schedule();
-            }else if (controlHub.driverController.L_Bumper.wasActivated()){
-                rContainer.IntakeNotePrep().schedule();
-            }else if (controlHub.driverController.R_Bumper.wasActivated()){
-                rContainer.IntakeNoteStow().schedule();
-            }
+            // if (controlHub.operatorController.L_Bumper.wasActivated()) {
+            //     rContainer.FallOffChain().schedule();
+            // }else if (controlHub.operatorController.R_Bumper.wasActivated()){
+            //     rContainer.ClimbChain().schedule();
+            // }else if (controlHub.operatorController.X_Button.wasActivated()){
+            //     rContainer.StowArm().schedule();
+            // }else if (controlHub.operatorController.Y_Button.wasActivated()){
+            //     rContainer.ScoreNote().schedule();
+            // }else if (controlHub.driverController.L_Bumper.wasActivated()){
+            //     rContainer.IntakeNotePrep().schedule();
+            // }else if (controlHub.driverController.R_Bumper.wasActivated()){
+            //     rContainer.IntakeNoteStow().schedule();
+            // }
         }
     }
     
