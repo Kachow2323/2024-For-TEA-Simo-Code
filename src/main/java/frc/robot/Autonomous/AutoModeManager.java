@@ -29,15 +29,10 @@ public final class AutoModeManager{
     public static Command m_autonomousCommand;
 
     public AutoModeManager() {
-    mModeChooser.addOption("Do Nothing", DesiredMode.DO_NOTHING);
-    mModeChooser.addOption("Test Path", DesiredMode.TEST_PATH_AUTO);
     mModeChooser.addOption("Go Path", DesiredMode.GO_PATH_AUTO);
-    mModeChooser.addOption("One Notw", DesiredMode.ONE_NOTE_AUTO);
     mModeChooser.addOption("IgnoreReturn", DesiredMode.RETURN_PATH_AUTO);
-    mModeChooser.addOption("Playoff", DesiredMode.PLAYOFF_AUTO);
     mModeChooser.addOption("Three Note Auto", DesiredMode.THREE_NOTE);
     mModeChooser.setDefaultOption("Default Auto", DesiredMode.DO_NOTHING);
-
     }
 
     public static void updateAutoMode(){
@@ -55,17 +50,8 @@ public final class AutoModeManager{
             case DO_NOTHING:
 				m_autonomousCommand = DoNothingCommand.NoAuto();
                 break;
-            case TEST_PATH_AUTO:
-                m_autonomousCommand = DriveTimeCommand.TestAuto();
-                break;
             case GO_PATH_AUTO:
 				m_autonomousCommand = GoAutoCommand.driveAutoCommand();
-                break;
-			case ONE_NOTE_AUTO:
-				m_autonomousCommand = OneNoteCommand.ScoreAutoOneNoteAmp();
-                break;
-			case PLAYOFF_AUTO:
-				m_autonomousCommand = PlayoffAutoCommand.ScorePlayoffAuto();
                 break;
             case THREE_NOTE:
                 m_autonomousCommand = ThreeNoteAutoCommand.score3NoteCommand();
