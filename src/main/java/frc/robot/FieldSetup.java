@@ -13,12 +13,12 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 public class FieldSetup {
         public static final Translation2d bluePassPosition = new Translation2d(0.6, 7.5);
         public static final Translation2d redPassPosition = new Translation2d(16, 7.5);
-
+        /** This returns what allaince color we are. */
         public static final Supplier<Translation2d> alliancePassPositionSupplier = () -> DriverStation.getAlliance()
                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Blue
                         ? bluePassPosition
                         : redPassPosition;
-
+        //list of april tags on the field for each alliance
         public static final TreeMap<Integer, Translation2d> kRedAprilTagLayout = new TreeMap<Integer, Translation2d>() {
             {
                 put(1, new Translation2d(Units.inchesToMeters(593.68), Units.inchesToMeters(9.68)));
@@ -47,12 +47,12 @@ public class FieldSetup {
                 put(61, new Translation2d(Units.inchesToMeters(0), Units.inchesToMeters(287)));
             }
         };
-
+        
         public static final int kRedSpeakerId = 4;
         public static final int kBlueSpeakerId = 7;
         public static final int kRedAmpId = 5;
         public static final int kBlueAmpId = 6;
-
+        /** Gets the alliance and returns the the different in position to the speaker */
         public static Supplier<Translation2d> allianceSpeakerPositionSupplier = () -> DriverStation.getAlliance()
                 .orElse(DriverStation.Alliance.Blue) == Alliance.Blue
                         ? getTagTranslation(kBlueSpeakerId)
@@ -63,7 +63,7 @@ public class FieldSetup {
 
         public static final Pose2d ampEntryTolerance = new Pose2d(new Translation2d(0.2, 0.2),
                 Rotation2d.fromDegrees(1));
-
+        /** Gets the alliance and returns the the different in position to the amp */
         public static final Supplier<Pose2d> allianceAmpEntryPoseSupplier = () -> DriverStation.getAlliance()
                 .orElse(DriverStation.Alliance.Blue) == Alliance.Blue
                         ? new Pose2d(getTagTranslation(kBlueAmpId),
@@ -71,7 +71,7 @@ public class FieldSetup {
                         : new Pose2d(getTagTranslation(kRedAmpId),
                                 Rotation2d.fromDegrees(90));
 //.plus(ampEntryOffset)
-
+        /** Returns the 2D translation of the ID */
         public static Translation2d getTagTranslation(int id) {
             if (kRedAprilTagLayout.containsKey(id)) {
                 return kRedAprilTagLayout.get(id);

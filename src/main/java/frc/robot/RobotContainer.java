@@ -122,30 +122,31 @@ public class RobotContainer {
    * {@link JoystickButton}.
    */
 
-  public void RunArmPositive(){
+  
+  public void RunArmPositive(){ //Runs the arm slowly up as long as it is pressed.
     new RunCommand(() -> arm.setOpenLoop(.2), arm);
   }
-
+  /** Runs the arm slowly down as long as it is pressed. */
   public void RunArmNegative(){
     new RunCommand(() -> arm.setOpenLoop(-0.2), arm);
   }
-
+  /** Command that runs the hooks slowly open as long as it is pressed. */
   public Command RunHookPositive(){
     return new RunCommand(() -> hook.setOpenLoop(.1), hook);
   }
-
+  /** Command that runs the hooks slowly close as long as it is pressed. */
   public Command RunHookNegative(){
     return new RunCommand(() -> hook.setOpenLoop(-0.1), hook);
   }
-
+  //** Command that opens the hook to intake the note. */
   public Command IntakeNotePrep(){
     return new RunCommand(() -> hook.setHookState(States.HookPos.OPEN), hook);
   }
-
+  /** Command that closes the hook. */
   public Command IntakeNoteStow(){
     return new RunCommand(() -> hook.setHookState(States.HookPos.STOW), hook);
   }
-
+  /** Command that runs both the arm to the score position and the hook after a delay. */
   public Command ScoreNote(){
     return new ParallelCommandGroup(
           new RunCommand(() -> {
@@ -160,20 +161,20 @@ public class RobotContainer {
           )
         );
   }
-
+  /** Command that runs both the arm and hook to the stow position. */
   public Command StowArm(){
   return new RunCommand(() -> {
         arm.setArmState(States.ArmPos.STOW); 
         hook.setHookState(States.HookPos.STOW);
        }, arm, hook);
   }
-
+  /** Command that Runs the Arm to the Climb position. */
   public Command ClimbChain(){
   return new RunCommand(() -> {
         arm.setArmState(States.ArmPos.CLIMB_UP); 
        }, arm);
   }
-
+  /** Command that run only the arm to the stow position. */
   public Command FallOffChain(){
   return new RunCommand(() -> {
           arm.setArmState(States.ArmPos.CLIMB_DOWN); 
@@ -221,7 +222,7 @@ public class RobotContainer {
   public static Optional<Alliance> isRedAlliance(){
     return DriverStation.getAlliance();
   }
-
+  /** Command that will try to have the robot create a path on the fly and drive to the amp. */
   public static Command ampAutoDrive() {
     return new DriveToPose(FieldSetup.allianceAmpEntryPoseSupplier, FieldSetup.ampEntryTolerance);
   }

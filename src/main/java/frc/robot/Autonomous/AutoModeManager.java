@@ -27,7 +27,7 @@ public final class AutoModeManager{
     //private Optional<AutoModeBase> mAutoMode = Optional.empty();
     public static SendableChooser<DesiredMode> mModeChooser = new SendableChooser<>();
     public static Command m_autonomousCommand;
-
+    /** This makes a smart dashboard selection for autos.  */
     public AutoModeManager() {
     mModeChooser.addOption("Do Nothing", DesiredMode.DO_NOTHING);
     mModeChooser.addOption("Test Path", DesiredMode.TEST_PATH_AUTO);
@@ -39,7 +39,7 @@ public final class AutoModeManager{
     mModeChooser.setDefaultOption("Default Auto", DesiredMode.DO_NOTHING);
 
     }
-
+    /** If no auto is selected then it would do nothing or else it would do the desired mode. */
     public static void updateAutoMode(){
         DesiredMode desiredMode = mModeChooser.getSelected();
         if (desiredMode == null) {
@@ -49,7 +49,7 @@ public final class AutoModeManager{
         }   
         m_autonomousCommand = grabAutoMode(desiredMode);
     }
-
+    /** This returns the selected auto from the selection. */
     public static Command grabAutoMode(DesiredMode data){
         switch(data){
             case DO_NOTHING:

@@ -62,7 +62,9 @@ public class XboxControllerSetup extends XboxController {
 public void setDeadband(double deadband) {
 		DEAD_BAND = deadband;
 	}
-
+/**
+ * This creates a controller with buttons we can reference given the port.
+ */
 	public XboxControllerSetup(int usb) {
 		super(usb);
 		A_Button = new ButtonCheck(A_BUTTON);
@@ -80,6 +82,8 @@ public void setDeadband(double deadband) {
 		POV180 = new ButtonCheck(POV_180);
 		POV270 = new ButtonCheck(POV_270);
 	}
+
+	/** Commands we use to get the button presses and joystick axis */
 
 	@Override
 	public double getLeftX() {
@@ -132,6 +136,11 @@ public void setDeadband(double deadband) {
 	public boolean getFaceButtonY(){
 		return getRawButtonPressed(Y_BUTTON);
 	}
+
+	/** 
+	 * This functions as our logic for buttons. 
+	 * Examples like if pressed longer then said time or if it is currently being pressed.
+	*/
 
 	public class ButtonCheck {
 		boolean buttonCheck = false;
@@ -289,7 +298,8 @@ public void setDeadband(double deadband) {
 			return !buttonActive;
 		}
 	}
-
+	
+	/** A function to update all our buttons for one controller to check for actions. */
 	public void update() {
 		A_Button.update();
 		B_Button.update();

@@ -76,6 +76,7 @@ public class Hook extends SubsystemBase {
     
     @Override
     public void periodic() {
+        //logging
         SmartDashboard.putNumber("hook abs encoder", hookEncoder.getPosition());
         SmartDashboard.putNumber("hook rel encoder", relHookEncoder.getPosition());
         SmartDashboard.putNumber("Hook Voltage", motor.getBusVoltage());
@@ -92,7 +93,7 @@ public class Hook extends SubsystemBase {
         SmartDashboard.putNumber("Hook SetPoint", position);
         enable = position;
     }
-
+    
     public void setHookPositionDegree(double degreePosition) { //define degreePosition earlier
         double convertDeg = 11.375;
         double encoderPosition = degreePosition*convertDeg; //degree to encoder

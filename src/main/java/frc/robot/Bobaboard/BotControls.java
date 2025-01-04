@@ -20,13 +20,13 @@ public class BotControls {
     final static SendableChooser<Boolean> ControllerMode = new SendableChooser<>();
     public boolean OneControllerQuery = true;
 
-
+    /** Makes a smart dashboard selection for controller option */
     public final void PutControllerOption(){
         ControllerMode.addOption("One Controller", true);
         ControllerMode.addOption("Two Controller(s)", false);
         SmartDashboard.putData("Controller Selection", ControllerMode);
     }
-
+    /** This returns the option selected or the One controller mode if nothing is selected */
     public final void selectControllerOption(){
         if (ControllerMode.getSelected() == null){
             OneControllerQuery = true;
@@ -35,7 +35,7 @@ public class BotControls {
         OneControllerQuery = m_ControllerSelected;
         }
     }
-
+    //Logging True or false for button presses meant for Advantage Scope.
     public final void o_reportBotControlData(){
         SmartDashboard.putBoolean("m_ControllerSelected", OneControllerQuery);
         SmartDashboard.putBoolean("Driver A Button", controlHub.driverController.A_Button.isBeingPressed());
@@ -48,6 +48,10 @@ public class BotControls {
         SmartDashboard.putBoolean("Driver RBumper", controlHub.driverController.R_Bumper.isBeingPressed());
     }
 
+    /** 
+     * Based off the controller option that is selected it maps different action to different buttons. 
+     *  Actions are done by checking if a button is pressed then scedules a command.
+    */    
     public void RunRobot(){
     if (OneControllerQuery == true){
             if (controlHub.driverController.A_Button.wasActivated()) {

@@ -25,12 +25,12 @@ public class ControlHub {
 	// Optional<Integer> testController = Optional.of();
 
 	boolean testBoolean = false;
-
+	/** This makes driver and operator controller with 2 different ports. */
 	private ControlHub() {
 		driverController = new XboxControllerSetup(Constants.OIConstants.kDriverControllerPort);
 		operatorController = new XboxControllerSetup(Constants.OIConstants.kOperatorControllerPort);
 	}
-
+	/** This is logging for controllers and wether they are connected. */
 	public void verifyControllerIntegrity(){
 		boolean driverIsConnected = driverController.isConnected();
 		boolean operatorIsConnected = operatorController.isConnected();
@@ -38,7 +38,7 @@ public class ControlHub {
 		SmartDashboard.putBoolean("Driver Controller Connected", driverIsConnected);
 		SmartDashboard.putBoolean("Operator Controller Connected", operatorIsConnected);
 	}
-
+	/** This function uses a test case of controlllers and return true if both are connected and false if either are not. */
 	public boolean verifyPossibleControllerInit(){
 		tControllerSetup1 = new XboxControllerSetup(Constants.OIConstants.kDriverControllerPort);
 		tControllerSetup2 = new XboxControllerSetup(Constants.OIConstants.kOperatorControllerPort);
@@ -54,7 +54,7 @@ public class ControlHub {
 			return testBoolean;
 		}
 	}
-
+	/** This makes both controllers to check for any press or actions. */
 	public void update() {
 		driverController.update();
 		operatorController.update();

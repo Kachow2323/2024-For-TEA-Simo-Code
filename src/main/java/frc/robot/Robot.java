@@ -103,6 +103,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
   }
 
+  //This writes to smart dashbaord wether or not there are controllers and if there is an option selcted use said controller option.
   @Override
   public void teleopInit() {
     mControlBoard.verifyPossibleControllerInit();
@@ -110,6 +111,8 @@ public class Robot extends TimedRobot {
   }
 
   /** This function is called periodically during operator control. */
+  //So we check for controller presses and do action accordingly.
+  
   @Override
   public void teleopPeriodic() {
     SmartDashboard.putString("ALLIANCE", RobotContainer.isRedAlliance().get().toString());

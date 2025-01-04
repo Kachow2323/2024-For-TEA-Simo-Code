@@ -35,6 +35,7 @@ public class VisionSubsystem extends SubsystemBase {
     }
 
     public void periodic() {
+        //logging
         SmartDashboard.putNumber("Limelight Distance", lastDistance);
         SmartDashboard.putNumber("Limelight Angular Error", lastTX % 360);
 
