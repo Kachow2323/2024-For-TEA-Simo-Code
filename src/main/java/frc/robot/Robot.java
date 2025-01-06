@@ -50,6 +50,56 @@ import frc.robot.Bobaboard.ControlHub;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.utils.CoordinateSpace;
 
+/*Important Notes for 2025:
+22 April Tags - Diff Angles (not all @ 90*). - center tags @ 30* down
+solution: run 2 limelights? - tags clustered together = easier tf
+current auto-align works, remember to flip by 180 when red
+AUTO:
+Start in the center, alliance dependant
+- certain areas are a no go zone, likely need to exempt opposing barge zone
+- intake available during auto. multi-CORAL auto? 
+  - 4 L1 dumps - min
+  - 3 L3 CORAL + ALGAE - ideal
+COOPERTITION:
+- basically necessary if goal is to get CORAL RP
+- unlikely L4 scores
+ENDGAME:
+- 2 shallow + park = free RP
+- Shallow Cage Climb? - 1678 2023 climb?
+CHANGES/DIFFS:
+- no feeding alliance partners
+- coop basically neccesary
+- ALGAE COOP is kinda bad value when <2 bc net gain is only +4
+Initial Design Brainstorm:
+- Variable Slapdown Ground Intake (1678, 2024)
+- Indexer (6328, 2024), (1678,2024)
+- Dual Stage Elavator? - hard but gurantee upgradbality and L1
+- Cascading Elavator (X?) - very diffircult, never done b4. chance to do everything
+- Spin down Gamepiece (4414, 2023). Will not bounce off.
+PHIL:
+Possible RP:
+AUTO RP: Free RP
+Coral RP: Coop and L1 -> L3 = Work
+Barge RP: [2 Shallow + 1 Park = Free RP], 1 deep + 2 park = RP
+Win = 3 RP, relevant to above but not casuality
+
+Design:
+Robust, Fast, Easy to Rebuild
+Intakes: Touch it, Own It.
+Auto Domination = Easy Head Start --> Snowball/Hold Lead
+
+Discuss: TMRW
+Goals.
+
+Aspects with Sig Influence:
+AUTO: goal is multi-piece autos = RP & Head Start
+If we feed L1, fast cycles
+If we score L2+, gurantee 5 at min
+MUST Clear ALGAE B4 Scoring, 2 in 1 mechanism?
+Driveteam wanted a hold rotation button (Easy)
+Driveteam wanted a direct drive to place (Waiting for April Tag Map to make TreeMap)
+*/
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
